@@ -1,0 +1,159 @@
+.form-header {
+  text-align: left;
+}
+
+.form-header .title {
+  text-align: left;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #222222;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-header .title .badge {
+  flex: none;
+  display: inline-block;
+  padding: 1px 8px 0 7px;
+  height: 20px;
+  border-radius: 12px;
+  background-color: #125de6;
+  margin-bottom: 4px;
+
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+}
+
+@media screen and (max-width: 360px) {
+  html[lang='ko'] .form-header .title {
+    word-break: keep-all;
+  }
+}
+
+.form-header .info {
+  text-align: left;
+  margin-top: 40px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: #222222;
+}
+
+html[lang='ko'] .form-header .info {
+  word-break: keep-all;
+}
+
+.form-header .info .blue {
+  color: #125de6;
+}
+
+.form-header .info ul {
+  padding-left: 8px;
+}
+
+.form-header .info ul li {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: #777777;
+  position: relative;
+}
+
+.form-header .info ul li::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  background-color: #777777;
+  border-radius: 100%;
+  -webkit-align-self: start;
+  -ms-flex-item-align: start;
+  align-self: start;
+  margin-top: 11px;
+  position: absolute;
+  left: -10px;
+}
+
+@media screen and (max-width: 360px) {
+  .form-header .info {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.form-header .info-detail {
+  margin-top: 16px;
+  color: #777777;
+}
+
+.form-header .error {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  font-size: 16px;
+  line-height: 24px;
+  color: #e51a1a;
+}
+
+.form-header .error:empty {
+  display: none;
+}
+
+.form-header .error br {
+  flex: none;
+}
+
+@media screen and (max-width: 360px) {
+  .form-header .error {
+    font-size: 14px;
+    font-weight: normal;
+  }
+}
+
+.form-header .info-box {
+  margin-top: 16px;
+  width: 100%;
+  padding: 11px;
+  background-color: #ebf2ff;
+  box-sizing: border-box;
+  text-align: center;
+
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #222222;
+}
+
+@media screen and (max-width: 360px) {
+  .form-header .info-box {
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.form-header .subtitle {
+  text-align: left;
+  margin-top: 40px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: #222222;
+}
+
+.form-header .description {
+  text-align: left;
+  margin-top: 40px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: #777777;
+}
