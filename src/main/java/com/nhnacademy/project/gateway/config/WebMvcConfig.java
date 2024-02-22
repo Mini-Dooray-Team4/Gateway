@@ -11,6 +11,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .addPathPatterns("/**") // 모든 요청에 인터셉터를 적용합니다.
-                .excludePathPatterns("/login","/css/**","/img/**","/js/**","/static/**"); // 로그인 요청은 인터셉터를 적용하지 않습니다.
+                .excludePathPatterns("/login","/css/**","/img/**","/js/**","/static/**","/users/signup"); // 로그인 요청은 인터셉터를 적용하지 않습니다.
     }
 }

@@ -29,41 +29,51 @@
         <section class="main-layout__section">
             <div class="main-layout__contents">
                 <div class="form-header">
-                    <div id="title" class="title">NHN 아카데미에 로그인합니다.</div>
+                    <div id="title" class="title">회원가입</div>
                     <div class="error">
                     </div>
                 </div>
-                <form class="form-body" id="idp-login-form" method="post" th:action="@{/login}">
+                <form class="form-body" id="idp-signup-form" method="post" th:action="@{/users/signup}">
                     <div class="form-item">
                         <div class="bottom-lined-text-field w80" id="userId">
                             <input type="text" name="userId" id="userId-input" autofocus="" placeholder="아이디"
-                                   data-translate-prop="placeholder" value="" maxlength="100">
+                                   data-translate-prop="placeholder" value="" maxlength="100"  autocomplete="false">
                         </div>
                     </div>
                     <div class="form-item">
                         <div class="bottom-lined-text-field w80" id="password">
                             <input type="password" name="userPassword" id="userPassword-input" placeholder="비밀번호"
-                                   data-translate-prop="placeholder" value="" maxlength="100" autocomplete="off">
+                                   data-translate-prop="placeholder" value="" maxlength="100" autocomplete="false">
+                        </div>
+                    </div>
+<!--                    <div class="form-item">-->
+<!--                        <div class="bottom-lined-text-field w80" id="passwordCheck">-->
+<!--                            <input type="password" name="userPassword" id="userPasswordCheck-input" placeholder="비밀번호 확인"-->
+<!--                                   data-translate-prop="placeholder" value="" maxlength="100" autocomplete="false">-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-item">
+                        <div class="bottom-lined-text-field w80" id="userEmail">
+                            <input type="text" name="userEmail" id="userEmail-input" placeholder="이메일"
+                                   data-translate-prop="placeholder" value="" maxlength="100"  autocomplete="false">
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="bottom-lined-text-field w80" id="userName">
+                            <input type="text" name="userName" id="userName-input" placeholder="이름"
+                                   data-translate-prop="placeholder" value="" maxlength="100"  autocomplete="false">
                         </div>
                     </div>
                     <div class="form-footer">
                         <div class="form-footer__primary-button">
                             <button id="footer-primary-button" class="btn contained" type="submit">
-                                <span>로그인</span>
+                                <span>회원가입</span>
                             </button>
                         </div>
-                        <a id="signup-link" class="form-footer__link-button" data-translate="loginForm~~회원가입"
-                           href="/users/signup">회원가입</a>
                     </div>
                     <div class="form-item info" id="footer-select-org">
                         <a id="footer-select-org-link" class="form-footer__link-button"></a>
                     </div>
-                </form>
-                <form action="/idp/login" method="post" id="idp-login-form-hidden" class="hidden-item">
-                    <input type="hidden" name="userId">
-                    <input type="hidden" name="userPassword">
-                    <input type="hidden" name="domain" value="nhnacademy.dooray.com">
-                    <input type="hidden" name="redirectUrl" value="/auth/signin/finalize?nextUrl=/">
                 </form>
             </div>
         </section>
