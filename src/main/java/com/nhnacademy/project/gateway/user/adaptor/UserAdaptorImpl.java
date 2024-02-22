@@ -2,6 +2,7 @@ package com.nhnacademy.project.gateway.user.adaptor;
 
 import com.nhnacademy.project.gateway.domain.ResponseMessage;
 import com.nhnacademy.project.gateway.user.config.UserAdaptorProperties;
+import com.nhnacademy.project.gateway.user.domain.LoginDto;
 import com.nhnacademy.project.gateway.user.domain.UserDto;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -58,4 +59,6 @@ public class UserAdaptorImpl implements UserAdaptor{
         );
         return exchange.getBody();
     }
+
+
 }

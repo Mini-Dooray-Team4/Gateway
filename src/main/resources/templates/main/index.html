@@ -2,31 +2,25 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>user - list</title>
+    <title>project - list</title>
 </head>
 <body>
-<h1>사용자 리스트</h1>
-<table>
-    <caption></caption>
-    <thead>
-    <tr>
-        <th>아이디</th>
-        <th>이름</th>
-        <th>이메일</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.userId}"></td>
-        <td th:text="${user.userName}"></td>
-        <td th:text="${user.userEmail}"></td>
-        <td>
-            <!--
-            <a th:href="@{/student/view(id=${item.id})}">조회</a>
-            -->
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div>
+    <table>
+        <caption></caption>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Project</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="project : ${projects}">
+            <td th:text="${project.projectId}"></td>
+            <td th:text="${project.projectName}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

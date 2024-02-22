@@ -12,4 +12,5 @@ public interface UserAdaptor {
 
     ResponseMessage createUser(UserDto userDto);
 
+
 }
