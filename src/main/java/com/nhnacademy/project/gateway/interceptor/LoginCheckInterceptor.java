@@ -13,7 +13,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         if(session == null || session.getAttribute("user") == null) {
 
-            response.sendRedirect("/login");
+            response.sendRedirect("/auth/login");
             return false;
         }
         // 로그인 되어있을 떄

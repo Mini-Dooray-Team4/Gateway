@@ -1,0 +1,48 @@
+.form-body {
+  margin-top: 40px;
+}
+
+.form-body .form-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 24px;
+  text-align: left;
+}
+
+.form-body .form-item input[type='text'],
+.form-body .form-item input[type='password'] {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-body .form-item.submit {
+  width: 100%;
+  height: 50px;
+}
+
+.form-body .form-item.find {
+  width: 100%;
+  height: 24px;
+}
+
+.form-body .form-item.info {
+  font-size: 16px;
+  line-height: 24px;
+  color: #777777;
+  display: block;
+}
+
+@media screen and (max-width: 360px) {
+  .form-body .info {
+    font-size: 14px;
+    font-weight: normal;
+  }
+}
+
+.form-body .hidden-item {
+  display: none;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}

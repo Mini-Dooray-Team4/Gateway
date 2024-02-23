@@ -1,0 +1,60 @@
+html:not([env='gov']) #isIpSecured {
+  display: none;
+}
+
+#isIpSecured {
+  margin-left: 25px;
+}
+
+#login-try-block-error {
+  display: none;
+}
+
+#login-try-block-error.show {
+  display: block;
+}
+
+.tooltip {
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+.login-email-multi-form {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+}
+
+.login-email-multi-form .main-layout {
+  margin: 0 auto 0;
+}
+
+@media screen and (max-width: 790px) {
+  .login-email-multi-form {
+    display: block;
+    height: auto;
+  }
+
+  .login-email-multi-form .main-layout {
+    max-width: 790px;
+    margin: 100px auto 0;
+    margin-top: 30px;
+    padding: 0 30px;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .login-email-multi-form {
+    display: block;
+    height: auto;
+  }
+
+  .login-email-multi-form .main-layout {
+    max-width: 360px;
+    margin: 100px auto 0;
+    margin-top: 30px;
+    padding: 0 30px;
+    flex-direction: column;
+  }
+}
