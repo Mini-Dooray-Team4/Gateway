@@ -10,92 +10,20 @@
     <main class="d-flex flex-nowrap" style="height:100vh">
 
         <div class="d-flex flex-column flex-shrink-0 p-0 bg-body-tertiary" style="width: 200px;height: 90vh">
-            <div class="d-flex align-items-center flex-shrink-0 p-2 link-body-emphasis text-decoration-none border-bottom">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Add +
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                     tabindex="-1"
-                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Project Add</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <form method="post" th:action="@{/project/register}">
-                                <div class="modal-body">
-
-                                    <input type="hidden" th:value="${session.user.userId}" name="userId">
-
-                                    <div class="mb-3">
-                                        <label for="projectName-input" class="col-form-label">Project Name :</label>
-                                        <input type="text" class="form-control" name="projectName"
-                                               id="projectName-input"
-                                               placeholder="Project Name">
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                    </button>
-                                    <button type="submit" class="btn btn-primary">ADD</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="list-group list-group-flush border-bottom scrollarea"
-                 style="overflow: scroll;height:100vh;padding: 10px;">
-                <a th:href="@{/task/project/{projectId}(projectId=${projectItem.projectId})}"
-                   th:classappend="${project != null && projectItem.projectId == project.projectId} ? 'list-group-item list-group-item-action  py-2 lh-sm active' : 'list-group-item list-group-item-action py-2 lh-sm'"
-                   aria-current="true"
-                   th:each="projectItem : ${projects}">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1" th:text="${projectItem.projectName}"></strong>
-                    </div>
-                </a>
-            </div>
+            <th:block layout:fragment="projectList"></th:block>
         </div>
+
         <div class="b-example-divider b-example-vr"></div>
-        <div class="col contentContainer" th:if="${taskList !=null}">
-            <div class="d-flex align-items-center flex-shrink-0 p-2 link-body-emphasis text-decoration-none border-bottom">
-                <div class="list-group list-group-flush border-bottom scrollarea"
-                     style="overflow: scroll;height:100vh;padding: 10px;">
-                    <a th:href="@{/task/{taskId}/project/{projectId}(projectId=${project.projectId},taskId=${taskItem.taskId})}"
-                       th:classappend="${task != null && taskItem.taskId == task.taskId} ? 'list-group-item list-group-item-action  py-2 lh-sm active' : 'list-group-item list-group-item-action py-2 lh-sm'"
-                       aria-current="true"
-                       th:each="taskItem : ${taskList}">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1" th:text="${taskItem.taskTitle}"></strong>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <!--            <div class="container my-5">-->
-            <!--                <div class="p-5 text-center bg-body-tertiary rounded-3">-->
-            <!--                    <svg class="bi mt-4 mb-3" style="color: var(&#45;&#45;bs-indigo);" width="100" height="100"><use xlink:href="#bootstrap"></use></svg>-->
-            <!--                    <h1 class="text-body-emphasis">Jumbotron with icon</h1>-->
-            <!--                    <p class="col-lg-8 mx-auto fs-5 text-muted">-->
-            <!--                        This is a custom jumbotron featuring an SVG image at the top, some longer text that wraps early thanks to a responsive <code>.col-*</code> class, and a customized call to action.-->
-            <!--                    </p>-->
-            <!--                    <div class="d-inline-flex gap-2 mb-5">-->
-            <!--                        <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">-->
-            <!--                            Call to action-->
-            <!--                            <svg class="bi ms-2" width="24" height="24"><use xlink:href="#arrow-right-short"></use></svg>-->
-            <!--                        </button>-->
-            <!--                        <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">-->
-            <!--                            Secondary link-->
-            <!--                        </button>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
+
+        <div class="d-flex flex-column flex-shrink-0 p-0 bg-body-tertiary" style="width: 200px;height: 90vh">
+            <th:block layout:fragment="taskList"></th:block>
         </div>
+
+        <div class="b-example-divider b-example-vr"></div>
+
+        <th:block layout:fragment="taskDetail"></th:block>
+
+
     </main>
 </th:block>
 

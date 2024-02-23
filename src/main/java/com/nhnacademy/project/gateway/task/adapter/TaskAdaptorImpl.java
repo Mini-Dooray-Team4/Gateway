@@ -3,11 +3,18 @@ package com.nhnacademy.project.gateway.task.adapter;
 import com.nhnacademy.project.gateway.task.config.TaskAdaptorProperties;
 import com.nhnacademy.project.gateway.task.domain.Task;
 import com.nhnacademy.project.gateway.task.domain.TaskDto;
+import com.nhnacademy.project.gateway.task.domain.TaskRegisterDto;
+import org.apache.tomcat.jni.Local;
+import org.springframework.beans.BeanUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.swing.text.DateFormatter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
@@ -56,21 +63,22 @@ public class TaskAdaptorImpl implements TaskAdaptor {
     }
 
     @Override
-    public TaskDto getTask(Integer taskId) {
-        ResponseEntity<TaskDto> exchange = restTemplate.getForEntity(
+    public Task getTask(Integer taskId) {
+        ResponseEntity<Task> exchange = restTemplate.getForEntity(
                 address+"/{id}",
-                TaskDto.class,
+                Task.class,
                 taskId
         );
         return exchange.getBody();
     }
 
     @Override
-    public void createTask(Task task) {
+    public void createTask(TaskRegisterDto taskRegisterDto) {
+
         restTemplate.postForEntity(
                 address,
-                task,
-                Task.class
+                taskRegisterDto,
+                TaskRegisterDto.class
         );
     }
 
