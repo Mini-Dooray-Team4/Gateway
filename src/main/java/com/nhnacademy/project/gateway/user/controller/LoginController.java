@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/auth")
 public class LoginController {
     private final LoginAdaptor loginAdaptor;
 
@@ -22,20 +22,26 @@ public class LoginController {
         this.loginAdaptor = loginAdaptor;
     }
 
-    @GetMapping
+    @GetMapping("/login")
     public String loginForm() {
 
         return "auth/loginForm";
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public String doLogin(LoginDto loginDto, HttpServletRequest request) {
         UserDto userDto = loginAdaptor.matches(loginDto);
         if (Objects.isNull(userDto)) {
-            return "redirect:/login";
+            return "redirect:/auth/login";
         }
         HttpSession session = request.getSession(true);
         session.setAttribute("user", userDto);
         return "redirect:/project";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/auth/login";
     }
 }

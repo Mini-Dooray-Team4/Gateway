@@ -2,15 +2,13 @@ package com.nhnacademy.project.gateway.project.domain;
 
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Project {
     private Integer projectId;
 
@@ -19,5 +17,4 @@ public class Project {
     private String projectName;
 
     private String projectState;
-
 }

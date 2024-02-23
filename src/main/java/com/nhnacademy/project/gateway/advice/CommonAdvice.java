@@ -11,9 +11,13 @@ import org.springframework.web.client.HttpClientErrorException;
 @ControllerAdvice
 public class CommonAdvice {
     @ExceptionHandler(HttpClientErrorException.Conflict.class)
-    public String ConflictHandler(HttpClientErrorException e, Model model) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        log.info("{}",e.getMessage());
+    public String conflictHandler(HttpClientErrorException e, Model model) {
+        model.addAttribute("message", e.getMessage());
+        return "redirect:/users/signup";
+    }
+
+    @ExceptionHandler(HttpClientErrorException.NotFound.class)
+    public String notFoundHandler(HttpClientErrorException e, Model model) {
         model.addAttribute("message", e.getMessage());
         return "redirect:/users/signup";
     }
