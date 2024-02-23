@@ -7,8 +7,13 @@ import java.util.List;
 
 public interface TaskAdaptor {
     List<TaskDto> getAllTasks();
+    List<Task> getAllTasksByProjectId(Integer projectId);
 
     TaskDto getTask(Integer taskId);
 
     void createTask(Task task);
+
+    void updateTask(Task task);
+
+    void deleteTask(Integer taskId);
 }
