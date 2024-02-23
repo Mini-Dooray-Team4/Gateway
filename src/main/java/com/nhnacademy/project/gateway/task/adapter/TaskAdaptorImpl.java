@@ -40,6 +40,21 @@ public class TaskAdaptorImpl implements TaskAdaptor {
     }
 
     @Override
+    public List<Task> getAllTasksByProjectId(Integer projectId) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<Task>> exchange = restTemplate.exchange(
+                address + "/" + projectId,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {}
+        );
+        return exchange.getBody();
+    }
+
+    @Override
     public TaskDto getTask(Integer taskId) {
         ResponseEntity<TaskDto> exchange = restTemplate.getForEntity(
                 address+"/{id}",
@@ -49,7 +64,7 @@ public class TaskAdaptorImpl implements TaskAdaptor {
         return exchange.getBody();
     }
 
-    // 나중에 Task 프로젝트에서 create, delete, update 메소드 수정 필요
+    @Override
     public void createTask(Task task) {
         restTemplate.postForEntity(
                 address,
@@ -58,18 +73,19 @@ public class TaskAdaptorImpl implements TaskAdaptor {
         );
     }
 
-
-    public void updateTask(Integer taskId, Task task) {
+    @Override
+    public void updateTask(Task task) {
         restTemplate.put(
-                address + "/{id}",
+                address + "/{taskId}",
                 task,
-                taskId
+                task.getTaskId()
         );
     }
 
+    @Override
     public void deleteTask(Integer taskId) {
         restTemplate.delete(
-                address + "/{id}",
+                address + "/{taskId}",
                 taskId
         );
     }
