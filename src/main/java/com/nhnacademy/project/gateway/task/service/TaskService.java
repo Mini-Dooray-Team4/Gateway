@@ -18,8 +18,8 @@ public class TaskService {
     public List<TaskDto> getTasks() {
         return taskAdaptor.getAllTasks();
     }
-    public List<Task> getTasksByProjectId(Integer projectId)
-    {
+
+    public List<Task> getTasksByProjectId(Integer projectId) {
         return taskAdaptor.getAllTasksByProjectId(projectId);
     }
 
@@ -31,11 +31,11 @@ public class TaskService {
         taskAdaptor.createTask(task);
     }
 
-    public void updateTask(Task task){
+    public void updateTask(Task task) {
         taskAdaptor.updateTask(task);
     }
 
-    public void deleteTask(Integer taskId){
+    public void deleteTask(Integer taskId) {
         taskAdaptor.deleteTask(taskId);
     }
 

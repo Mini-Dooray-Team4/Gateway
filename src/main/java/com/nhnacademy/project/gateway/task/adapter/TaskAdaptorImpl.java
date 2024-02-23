@@ -46,10 +46,11 @@ public class TaskAdaptorImpl implements TaskAdaptor {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
         ResponseEntity<List<Task>> exchange = restTemplate.exchange(
-                address + "/" + projectId,
+                address + "/project/{projectId}",
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<>() {}
+                new ParameterizedTypeReference<>() {},
+                projectId
         );
         return exchange.getBody();
     }

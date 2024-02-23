@@ -23,7 +23,6 @@ public class ProjectController {
 
     @GetMapping
     public String getProjects(Model model) {
-        log.info("hihi");
         model.addAttribute("projects", projectService.getProjects());
         return "main/index";
     }
