@@ -1,6 +1,5 @@
 package com.nhnacademy.project.gateway.task.adapter;
 
-import com.nhnacademy.project.gateway.domain.ResponseMessage;
 import com.nhnacademy.project.gateway.task.domain.Task;
 import com.nhnacademy.project.gateway.task.domain.TaskDto;
 

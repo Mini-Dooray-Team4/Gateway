@@ -3,6 +3,7 @@ package com.nhnacademy.project.gateway.project.service;
 import com.nhnacademy.project.gateway.project.adaptor.ProjectAdaptor;
 import com.nhnacademy.project.gateway.project.domain.Project;
 import com.nhnacademy.project.gateway.project.domain.ProjectDto;
+import com.nhnacademy.project.gateway.project.domain.ProjectRegisterDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class ProjectService {
         return projectAdaptor.getProject(projectId);
     }
 
-    public void createProject(Project project) {
-        projectAdaptor.createProject(project);
+    public void createProject(ProjectRegisterDto projectRegisterDto) {
+        projectAdaptor.createProject(projectRegisterDto);
     }
 
     public void updateProject(Project project){

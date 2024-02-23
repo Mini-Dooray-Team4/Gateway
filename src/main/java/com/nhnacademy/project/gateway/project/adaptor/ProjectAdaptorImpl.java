@@ -3,6 +3,8 @@ package com.nhnacademy.project.gateway.project.adaptor;
 import com.nhnacademy.project.gateway.project.config.ProjectAdaptorProperties;
 import com.nhnacademy.project.gateway.project.domain.Project;
 import com.nhnacademy.project.gateway.project.domain.ProjectDto;
+import com.nhnacademy.project.gateway.project.domain.ProjectRegisterDto;
+import org.springframework.beans.BeanUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -52,7 +54,9 @@ public class ProjectAdaptorImpl implements ProjectAdaptor {
     }
 
     @Override
-    public void createProject(Project project) {
+    public void createProject(ProjectRegisterDto projectRegisterDto) {
+        Project project = new Project();
+        BeanUtils.copyProperties(projectRegisterDto, project);
         restTemplate.postForEntity(
                 address,
                 project, // request

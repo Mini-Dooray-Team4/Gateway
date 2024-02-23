@@ -19,6 +19,6 @@ public class CommonAdvice {
     @ExceptionHandler(HttpClientErrorException.NotFound.class)
     public String notFoundHandler(HttpClientErrorException e, Model model) {
         model.addAttribute("message", e.getMessage());
-        return "redirect:/users/signup";
+        return "redirect:/auth/login";
     }
 }
