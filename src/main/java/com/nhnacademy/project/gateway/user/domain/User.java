@@ -1,6 +1,5 @@
 package com.nhnacademy.project.account.domain;
 
-
 import com.nhnacademy.project.gateway.user.domain.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
