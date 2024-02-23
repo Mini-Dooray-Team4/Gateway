@@ -22,50 +22,6 @@ public class ProjectAdaptorImpl implements ProjectAdaptor {
         this.address = projectAdaptorProperties.getAddress();
     }
 
-    /*
-            public UserAdaptorImpl(RestTemplate restTemplate,UserAdaptorProperties userAdaptorProperties) {
-        this.restTemplate = restTemplate;
-        this.userAdaptorProperties = userAdaptorProperties;
-        this.address = userAdaptorProperties.getAddress();
-    }
-
-    @Override
-    public List<UserDto> getUsers() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<List<UserDto>> exchange = restTemplate.exchange(
-                address,
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<>() {
-                }
-        );
-        return exchange.getBody();
-    }
-
-    @Override
-    public UserDto getUser(String userId) {
-        ResponseEntity<UserDto> exchange = restTemplate.getForEntity(
-                address+"/{id}",
-                UserDto.class,
-                userId
-        );
-        return exchange.getBody();
-    }
-
-    @Override
-    public ResponseMessage createUser(UserDto userDto) {
-        ResponseEntity<ResponseMessage> exchange = restTemplate.postForEntity(
-                address,
-                userDto,
-                ResponseMessage.class
-        );
-        return exchange.getBody();
-    }
-     */
-
     @Override
     public List<ProjectDto> getProjects() {
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -76,19 +32,22 @@ public class ProjectAdaptorImpl implements ProjectAdaptor {
                 address,
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<>() {
-                }
-        );
+                new ParameterizedTypeReference<>() { // 본문을 List<ProjectDto> 형태로 매핑
+                });
+
+        if (exchange.getStatusCode() != HttpStatus.OK) {
+            throw new RuntimeException();
+        }
+
         return exchange.getBody();
     }
 
     @Override
     public ProjectDto getProject(Integer projectId) {
         ResponseEntity<ProjectDto> exchange = restTemplate.getForEntity(
-                address + "/{id}",
-                ProjectDto.class,
-                projectId
-        );
+                address + "/{projectId}",
+                ProjectDto.class, // response type
+                projectId);
         return exchange.getBody();
     }
 
@@ -96,18 +55,23 @@ public class ProjectAdaptorImpl implements ProjectAdaptor {
     public void createProject(Project project) {
         restTemplate.postForEntity(
                 address,
-                project,
-                Void.class
+                project, // request
+                Void.class // response type
         );
     }
 
     @Override
     public void updateProject(Project project) {
-
+        restTemplate.put(
+                address + "/{projectId}",
+                project, // request
+                project.getProjectId());
     }
 
     @Override
-    public void deleteProject(Project project) {
-
+    public void deleteProject(Integer projectId) {
+        restTemplate.delete(
+                address + "/{projectId}",
+                projectId);
     }
 }

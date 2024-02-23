@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectDto {
+public class Tag {
+    private Integer tagId;
+    private String tagName;
     private Integer projectId;
-    private String projectName;
+
 }

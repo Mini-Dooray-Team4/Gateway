@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectDto {
-    private Integer projectId;
-    private String projectName;
+public class TaskTag {
+    private Integer taskId;
+    private Integer tagId;
 }

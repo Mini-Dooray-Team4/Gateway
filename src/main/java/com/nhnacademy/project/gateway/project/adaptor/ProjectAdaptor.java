@@ -1,7 +1,7 @@
 package com.nhnacademy.project.gateway.project.adaptor;
 
-import com.nhnacademy.project.gateway.project.domain.ProjectDto;
 import com.nhnacademy.project.gateway.project.domain.Project;
+import com.nhnacademy.project.gateway.project.domain.ProjectDto;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface ProjectAdaptor {
 
     void updateProject(Project project);
 
-    void deleteProject(Project project);
+    void deleteProject(Integer projectId);
 }
