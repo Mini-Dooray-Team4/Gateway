@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface TaskAdaptor {
     List<TaskDto> getAllTasks();
+
     TaskDto getTask(Integer taskId);
+
     void createTask(Task task);
 }
