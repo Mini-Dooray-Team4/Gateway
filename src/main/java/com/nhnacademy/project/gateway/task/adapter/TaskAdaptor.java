@@ -9,5 +9,5 @@ import java.util.List;
 public interface TaskAdaptor {
     List<TaskDto> getAllTasks();
     TaskDto getTask(Integer taskId);
-    ResponseMessage createTask(TaskDto taskDto);
+    void createTask(Task task);
 }

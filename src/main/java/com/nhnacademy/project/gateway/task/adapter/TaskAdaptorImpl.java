@@ -1,16 +1,16 @@
 package com.nhnacademy.project.gateway.task.adapter;
 
-import com.nhnacademy.project.gateway.domain.ResponseMessage;
 import com.nhnacademy.project.gateway.task.config.TaskAdaptorProperties;
 import com.nhnacademy.project.gateway.task.domain.Task;
 import com.nhnacademy.project.gateway.task.domain.TaskDto;
-import com.nhnacademy.project.gateway.user.domain.UserDto;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@Component
 public class TaskAdaptorImpl implements TaskAdaptor {
 
     private final RestTemplate restTemplate;
@@ -49,15 +49,28 @@ public class TaskAdaptorImpl implements TaskAdaptor {
         return exchange.getBody();
     }
 
-
     // 나중에 Task 프로젝트에서 create, delete, update 메소드 수정 필요
-    @Override
-    public ResponseMessage createTask(TaskDto taskDto) {
-        ResponseEntity<ResponseMessage> exchange = restTemplate.postForEntity(
+    public void createTask(Task task) {
+        restTemplate.postForEntity(
                 address,
-                taskDto,
-                ResponseMessage.class
+                task,
+                Task.class
         );
-        return exchange.getBody();
+    }
+
+
+    public void updateTask(Integer taskId, Task task) {
+        restTemplate.put(
+                address + "/{id}",
+                task,
+                taskId
+        );
+    }
+
+    public void deleteTask(Integer taskId) {
+        restTemplate.delete(
+                address + "/{id}",
+                taskId
+        );
     }
 }
