@@ -1,12 +1,8 @@
-package com.nhnacademy.project.account.domain;
+package com.nhnacademy.project.gateway.user.domain;
 
-
-import com.nhnacademy.project.gateway.user.domain.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor

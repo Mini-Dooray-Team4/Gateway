@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main-layout.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-header.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-body.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-footer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/checkbox.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/button.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bottom-lined-text-field.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tooltip.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login_form.css}"/>
+
+
+</head>
+<body>
+<div>
+    <div id="main-layout" class="main-layout">
+        <section class="main-layout__section main-layout__info">
+            <img id="main-image" class="main-layout__img"
+                 alt="dooray"
+                 src="/img/doorayWebImage.svg">
+        </section>
+        <section class="main-layout__section">
+            <div class="main-layout__contents">
+                <div class="form-header">
+                    <div id="title" class="title">회원가입</div>
+                    <div class="error">
+                    </div>
+                </div>
+                <form class="form-body" id="idp-signup-form" method="post" th:action="@{/users/signup}">
+                    <div class="form-item">
+                        <div class="bottom-lined-text-field w80" id="userId">
+                            <input type="text" name="userId" id="userId-input" autofocus="" placeholder="아이디"
+                                   data-translate-prop="placeholder" value="" maxlength="100"  autocomplete="false">
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="bottom-lined-text-field w80" id="password">
+                            <input type="password" name="userPassword" id="userPassword-input" placeholder="비밀번호"
+                                   data-translate-prop="placeholder" value="" maxlength="100" autocomplete="false">
+                        </div>
+                    </div>
+<!--                    <div class="form-item">-->
+<!--                        <div class="bottom-lined-text-field w80" id="passwordCheck">-->
+<!--                            <input type="password" name="userPassword" id="userPasswordCheck-input" placeholder="비밀번호 확인"-->
+<!--                                   data-translate-prop="placeholder" value="" maxlength="100" autocomplete="false">-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-item">
+                        <div class="bottom-lined-text-field w80" id="userEmail">
+                            <input type="text" name="userEmail" id="userEmail-input" placeholder="이메일"
+                                   data-translate-prop="placeholder" value="" maxlength="100"  autocomplete="false">
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="bottom-lined-text-field w80" id="userName">
+                            <input type="text" name="userName" id="userName-input" placeholder="이름"
+                                   data-translate-prop="placeholder" value="" maxlength="100"  autocomplete="false">
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div class="form-footer__primary-button">
+                            <button id="footer-primary-button" class="btn contained" type="submit">
+                                <span>회원가입</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-item info" id="footer-select-org">
+                        <a id="footer-select-org-link" class="form-footer__link-button"></a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+</body>
+</html>

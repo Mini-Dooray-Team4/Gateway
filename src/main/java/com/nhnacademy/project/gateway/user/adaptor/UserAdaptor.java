@@ -1,7 +1,7 @@
 package com.nhnacademy.project.gateway.user.adaptor;
 
-import com.nhnacademy.project.gateway.domain.ResponseMessage;
 import com.nhnacademy.project.gateway.user.domain.UserDto;
+import com.nhnacademy.project.gateway.user.domain.UserRegisterDto;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ public interface UserAdaptor {
 
     UserDto getUser(String userId);
 
-    ResponseMessage createUser(UserDto userDto);
+    void createUser(UserRegisterDto userRegisterDto);
+
 
 }

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectMember {
-//    private Project project;
     private Integer projectId;
     private String userId;
 }

@@ -1,23 +1,22 @@
 package com.nhnacademy.project.gateway.user.adaptor;
 
-import com.nhnacademy.project.gateway.domain.ResponseMessage;
 import com.nhnacademy.project.gateway.user.config.UserAdaptorProperties;
 import com.nhnacademy.project.gateway.user.domain.UserDto;
+import com.nhnacademy.project.gateway.user.domain.UserRegisterDto;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class UserAdaptorImpl implements UserAdaptor{
+public class UserAdaptorImpl implements UserAdaptor {
     private final RestTemplate restTemplate;
     private final UserAdaptorProperties userAdaptorProperties;
     private final String address;
 
-    public UserAdaptorImpl(RestTemplate restTemplate,UserAdaptorProperties userAdaptorProperties) {
+    public UserAdaptorImpl(RestTemplate restTemplate, UserAdaptorProperties userAdaptorProperties) {
         this.restTemplate = restTemplate;
         this.userAdaptorProperties = userAdaptorProperties;
         this.address = userAdaptorProperties.getAddress();
@@ -42,7 +41,7 @@ public class UserAdaptorImpl implements UserAdaptor{
     @Override
     public UserDto getUser(String userId) {
         ResponseEntity<UserDto> exchange = restTemplate.getForEntity(
-                address+"/{id}",
+                address + "/{id}",
                 UserDto.class,
                 userId
         );
@@ -50,12 +49,13 @@ public class UserAdaptorImpl implements UserAdaptor{
     }
 
     @Override
-    public ResponseMessage createUser(UserDto userDto) {
-        ResponseEntity<ResponseMessage> exchange = restTemplate.postForEntity(
+    public void createUser(UserRegisterDto userRegisterDto) {
+        restTemplate.postForEntity(
                 address,
-                userDto,
-                ResponseMessage.class
+                userRegisterDto,
+                Void.class
         );
-        return exchange.getBody();
     }
+
+
 }

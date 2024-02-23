@@ -1,0 +1,11 @@
+POST http://localhost:8080/users/signup
+Content-Type: application/json
+
+{
+  "userId": "signup",
+  "userPassword": "123",
+  "userEmail": "sign@nhn.com",
+  "userName": "가입"
+}
+
+###
