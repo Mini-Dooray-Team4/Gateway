@@ -1,5 +1,6 @@
 package com.nhnacademy.project.gateway.user.controller;
 
+import com.nhnacademy.project.gateway.domain.MessageDto;
 import com.nhnacademy.project.gateway.user.adaptor.UserAdaptor;
 import com.nhnacademy.project.gateway.user.adaptor.UserAdaptorImpl;
 import com.nhnacademy.project.gateway.user.domain.UserRegisterDto;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Slf4j
 @Controller
@@ -33,8 +35,11 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signup(UserRegisterDto userRegisterDto) {
+    public String signup(UserRegisterDto userRegisterDto,Model model) {
         userAdaptor.createUser(userRegisterDto);
-        return "redirect:/login";
+        MessageDto messageDto = new MessageDto("회원가입 성공!", "/auth/login", RequestMethod.GET, null);
+        model.addAttribute("params", messageDto);
+        return "common/messageRedirect";
+
     }
 }
