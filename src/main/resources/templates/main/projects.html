@@ -5,7 +5,7 @@
       layout:decorate="~{main/index}">
 <th:block layout:fragment="projectList">
     <div class="d-flex align-items-center flex-shrink-0 p-2 link-body-emphasis text-decoration-none border-bottom">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#projectModal">
+        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#projectModal"  style="width: 50%">
             Add +
         </button>
 
@@ -46,14 +46,27 @@
 
     <div class="list-group list-group-flush border-bottom scrollarea"
          style="overflow: scroll;height:100vh;padding: 10px;">
-        <a th:href="@{/project/{projectId}(projectId=${projectItem.projectId})}"
-           th:classappend="${session.project != null && projectItem.projectId == session.project.projectId} ? 'list-group-item list-group-item-action  py-2 lh-sm active' : 'list-group-item list-group-item-action py-2 lh-sm'"
-           aria-current="true"
-           th:each="projectItem : ${session.projects}">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1" th:text="${projectItem.projectName}"></strong>
+            <div class="btn-group"th:each="projectItem : ${session.projects}">
+                <a th:href="@{/project/{projectId}(projectId=${projectItem.projectId})}"
+                   th:classappend="${session.project != null && projectItem.projectId == session.project.projectId} ? 'btn btn-primary list-group-item-action  py-2 lh-sm ' : 'btn btn-outline-secondary list-group-item-action py-2 lh-sm'"
+                   aria-current="true">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                        <p th:text="${projectItem.projectName}" style="font-size: 15px;margin-bottom: 0px;"></p>
+                    </div>
+                </a>
+                <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        th:classappend="${session.project != null && projectItem.projectId == session.project.projectId} ? 'btn btn-primary dropdown-toggle dropdown-toggle-split' : 'btn btn-outline-secondary dropdown-toggle dropdown-toggle-split'">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
             </div>
-        </a>
+
     </div>
 </th:block>
 </html>
