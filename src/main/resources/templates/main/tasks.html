@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main/projects}">
+<th:block layout:fragment="taskList">
+    <div class="d-flex align-items-center flex-shrink-0 p-2 link-body-emphasis text-decoration-none border-bottom"
+         th:if="${project !=null}">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
+            Add +
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="taskModal" data-bs-backdrop="static" data-bs-keyboard="false"
+             tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="taskModalLable">Task Add</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <form method="post" th:action="@{/task/register}">
+                        <div class="modal-body">
+                            <input type="hidden" th:value="${project.projectId}" name="projectId">
+                            <input type="hidden" th:value="${session.user.userId}" name="userId">
+
+                            <div class="mb-3">
+                                <label for="taskName-input" class="col-form-label">Task Name :</label>
+                                <input type="text" class="form-control" name="taskTitle"
+                                       id="taskName-input"
+                                       placeholder="Task Name">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">ADD</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group list-group-flush border-bottom scrollarea"
+         style="overflow: scroll;height:100vh;padding: 10px;" th:if="${taskList !=null}">
+        <a th:href="@{/project/{projectId}/task/{taskId}(projectId=${project.projectId},taskId=${taskItem.taskId})}"
+           th:classappend="${task != null && taskItem.taskId == task.taskId} ? 'list-group-item list-group-item-action  py-2 lh-sm active' : 'list-group-item list-group-item-action py-2 lh-sm'"
+           aria-current="true"
+           th:each="taskItem : ${taskList}">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1" th:text="${taskItem.taskTitle}"></strong>
+            </div>
+        </a>
+    </div>
+</th:block>
+</html>
