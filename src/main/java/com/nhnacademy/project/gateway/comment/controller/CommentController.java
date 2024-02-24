@@ -4,16 +4,17 @@ import com.nhnacademy.project.gateway.comment.domain.CommentRegisterDto;
 import com.nhnacademy.project.gateway.comment.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpRequest;
+import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @Controller
-@RequestMapping("/project/{projectId}/task/{taskId}/comment")
+@RequestMapping("/comment")
 public class CommentController {
     private final CommentService commentService;
 
@@ -39,8 +40,9 @@ public class CommentController {
     }
 
     @PostMapping
-    public void createComment(@RequestBody CommentRegisterDto commentRegisterDto){
+    public String createComment(CommentRegisterDto commentRegisterDto, HttpServletRequest request) {
         commentService.createComment(commentRegisterDto);
+        return "redirect:"+request.getHeader("Referer");
     }
 
     @PutMapping("/{commentId}")

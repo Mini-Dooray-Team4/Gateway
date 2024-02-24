@@ -1,5 +1,6 @@
 package com.nhnacademy.project.gateway.comment.adaptor;
 
+import com.nhnacademy.project.gateway.comment.config.CommentAdaptorProperties;
 import com.nhnacademy.project.gateway.comment.domain.Comment;
 import com.nhnacademy.project.gateway.comment.domain.CommentDto;
 import com.nhnacademy.project.gateway.comment.domain.CommentRegisterDto;
@@ -17,13 +18,13 @@ import java.util.List;
 public class CommentAdaptorImpl implements CommentAdaptor{
 
     private final RestTemplate restTemplate;
-    private final ProjectAdaptorProperties projectAdaptorProperties;
+    private final CommentAdaptorProperties commentAdaptorProperties;
     private final String address;
 
-    public CommentAdaptorImpl(RestTemplate restTemplate, ProjectAdaptorProperties projectAdaptorProperties) {
+    public CommentAdaptorImpl(RestTemplate restTemplate, CommentAdaptorProperties commentAdaptorProperties) {
         this.restTemplate = restTemplate;
-        this.projectAdaptorProperties = projectAdaptorProperties;
-        this.address = projectAdaptorProperties.getAddress();
+        this.commentAdaptorProperties = commentAdaptorProperties;
+        this.address = commentAdaptorProperties.getAddress();
     }
 
 
@@ -33,7 +34,7 @@ public class CommentAdaptorImpl implements CommentAdaptor{
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
 
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<List<CommentDto>> exchane = restTemplate.exchange(
+        ResponseEntity<List<CommentDto>> exchange = restTemplate.exchange(
                 address,
                 HttpMethod.GET,
                 requestEntity,
@@ -41,11 +42,11 @@ public class CommentAdaptorImpl implements CommentAdaptor{
                 projectId, taskId
         );
 
-        if(exchane.getStatusCode() != HttpStatus.OK){
+        if(exchange.getStatusCode() != HttpStatus.OK){
             throw new RuntimeException();
         }
 
-        return exchane.getBody();
+        return exchange.getBody();
     }
 
     @Override
@@ -60,13 +61,12 @@ public class CommentAdaptorImpl implements CommentAdaptor{
 
     @Override
     public void createComment(CommentRegisterDto commentRegisterDto) {
-        Comment comment = new Comment();
-        comment.setCreateAt(LocalDateTime.now());
-        BeanUtils.copyProperties(commentRegisterDto, comment);
         restTemplate.postForEntity(
                 address,
-                comment,
-                Void.class
+                commentRegisterDto,
+                Void.class,
+                commentRegisterDto.getProjectId(),
+                commentRegisterDto.getTaskId()
         );
 
     }

@@ -28,59 +28,40 @@
             </div>
 
             <div class="card-body">
+                <strong th:text="${task.taskContent}"></strong>
+                <div class="card-footer card-comments">
 
-                <p>태스크 내용</p>
-                <p>Far far away, behind the word mountains, far from the</p>
-                <p>the coast of the Semantics, a large language ocean.</p>
-                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i>수정</button>
-                <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i>삭제</button>
-                <span class="float-right text-muted">2 코멘트</span>
-            </div>
-            <!--                            <div class="card-header border-0">-->
-            <!--                                <hr>-->
-            <!--                                <div class="d-flex justify-content-between">-->
-            <!--                                    <h3 class="card-title">Comment</h3>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <div class="card-footer card-comments">
+                    <div class="card-comment" th:if="${commentList !=null}"
+                         th:each="comment : ${commentList}">
+                        <div class="d-flex justify-content-between bd-highlight">
+                            <div>
+                                <strong th:text="${'등록자 : '+comment.userId +'등록일 : '+comment.createAt}"></strong>
+                            </div>
 
-                <div class="card-comment">
-                    <div class="comment-text">
-                                        <span class="username">코멘트 작성자<span class="text-muted float-right">2020-02-02 8:03</span>
-                                        </span>
-                        코멘트내용<br>
-                        It is a long established fact that a reader will be distracted
-                        by the readable content of a page when looking at its layout.
+                        </div>
+                        <strong th:text="${comment.content}"></strong>
                     </div>
                 </div>
 
-                <div class="card-comment">
-
-                    <div class="comment-text">
-                                        <span class="username">코멘트 작성자<span class="text-muted float-right">2020-02-02 8:03</span>
-                                        </span>
-                        코멘트내용<br>
-                        It is a long established fact that a reader will be distracted
-                        by the readable content of a page when looking at its layout.
-                    </div>
+                <div class="card-footer">
+                    <form th:action="@{/comment}" th:method="post">
+                        <input type="hidden" th:value="${session.project.projectId}" name="projectId">
+                        <input type="hidden" th:value="${task.taskId}" name="taskId">
+                        <input type="hidden" th:value="${session.user.userId}" name="userId">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <input type="text" class="form-control form-control-sm" placeholder="코멘트 입력"
+                                       name="content">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-default btn-sm">등록</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
 
-            <div class="card-footer">
-                <form action="#" method="post">
-                    <div class="row">
-                        <div class="col-md-11">
-                            <input type="text" class="form-control form-control-sm" placeholder="코멘트 입력">
-                        </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-default btn-sm">등록</button>
-                        </div>
-                    </div>
-                </form>
             </div>
 
         </div>
-
-    </div>
 </th:block>
 </html>

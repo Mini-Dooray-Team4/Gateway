@@ -9,4 +9,5 @@ public class TaskRegisterDto {
     private Integer projectId;
     private String taskTitle;
     private String userId;
+    private String taskContent;
 }

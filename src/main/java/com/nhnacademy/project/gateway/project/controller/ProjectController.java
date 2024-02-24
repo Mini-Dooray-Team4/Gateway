@@ -1,5 +1,7 @@
 package com.nhnacademy.project.gateway.project.controller;
 
+import com.nhnacademy.project.gateway.comment.domain.CommentDto;
+import com.nhnacademy.project.gateway.comment.service.CommentService;
 import com.nhnacademy.project.gateway.project.domain.Project;
 import com.nhnacademy.project.gateway.project.domain.ProjectDto;
 import com.nhnacademy.project.gateway.project.domain.ProjectRegisterDto;
@@ -20,11 +22,13 @@ import java.util.List;
 public class ProjectController {
     private final ProjectService projectService;
     private final TaskService taskService;
+    private final CommentService commentService;
 
 
-    public ProjectController(ProjectService projectService, TaskService taskService) {
+    public ProjectController(ProjectService projectService, TaskService taskService, CommentService commentService) {
         this.projectService = projectService;
         this.taskService = taskService;
+        this.commentService = commentService;
     }
 
     @GetMapping
@@ -45,7 +49,10 @@ public class ProjectController {
     @GetMapping("/{projectId}/task/{taskId}")
     public String getTask(Model model, @PathVariable("taskId") Integer taskId, @PathVariable("projectId") Integer projectId) {
         Task task = taskService.getTask(taskId);
+        List<CommentDto> commentList = commentService.getComments(projectId, taskId);
         model.addAttribute("task", task);
+        log.info("{}",commentList);
+        model.addAttribute("commentList", commentList);
         return "main/taskDetail";
     }
 
