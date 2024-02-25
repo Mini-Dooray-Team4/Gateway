@@ -3,6 +3,7 @@ package com.nhnacademy.project.gateway.project.adaptor;
 import com.nhnacademy.project.gateway.project.config.ProjectAdaptorProperties;
 import com.nhnacademy.project.gateway.project.domain.Project;
 import com.nhnacademy.project.gateway.project.domain.ProjectDto;
+import com.nhnacademy.project.gateway.project.domain.ProjectModifyDto;
 import com.nhnacademy.project.gateway.project.domain.ProjectRegisterDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.ParameterizedTypeReference;
@@ -65,11 +66,11 @@ public class ProjectAdaptorImpl implements ProjectAdaptor {
     }
 
     @Override
-    public void updateProject(Project project) {
+    public void updateProject(ProjectModifyDto projectModifyDto) {
         restTemplate.put(
                 address + "/{projectId}",
-                project, // request
-                project.getProjectId());
+                projectModifyDto, // request
+                projectModifyDto.getProjectId());
     }
 
     @Override

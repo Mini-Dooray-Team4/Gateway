@@ -4,6 +4,7 @@ import com.nhnacademy.project.gateway.comment.domain.CommentDto;
 import com.nhnacademy.project.gateway.comment.service.CommentService;
 import com.nhnacademy.project.gateway.project.domain.Project;
 import com.nhnacademy.project.gateway.project.domain.ProjectDto;
+import com.nhnacademy.project.gateway.project.domain.ProjectModifyDto;
 import com.nhnacademy.project.gateway.project.domain.ProjectRegisterDto;
 import com.nhnacademy.project.gateway.project.service.ProjectService;
 import com.nhnacademy.project.gateway.task.domain.Task;
@@ -62,9 +63,11 @@ public class ProjectController {
         return "redirect:/project";
     }
 
-    @PutMapping("/{projectId}")
-    public void updateProject(@RequestBody Project project) {
-        projectService.updateProject(project);
+    @PostMapping("/modify/{projectId}")
+    public String updateProject(ProjectModifyDto projectModifyDto) {
+        log.info("{}",projectModifyDto);
+        projectService.updateProject(projectModifyDto);
+        return "redirect:/project";
     }
 
     @DeleteMapping("/{projectId}")
