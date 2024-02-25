@@ -21,8 +21,8 @@ public class TagService {
         return tagAdaptor.getTag(tagId);
     }
 
-    public void createTag(Tag tag) {
-        tagAdaptor.createTag(tag);
+    public void createTag(TagRegisterDto tagRegisterDto) {
+        tagAdaptor.createTag(tagRegisterDto);
     }
 
     public void updateTag(Tag tag) {

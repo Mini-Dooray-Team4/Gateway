@@ -1,4 +1,4 @@
-package com.nhnacademy.project.gateway.user.domain;
+package com.nhnacademy.project.gateway.project.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

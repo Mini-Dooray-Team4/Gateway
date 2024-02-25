@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.validation.constraints.NotNull;
 
-@ConfigurationProperties(prefix = "com.nhnacademy.project.task.entity")
+@ConfigurationProperties(prefix = "com.nhnacademy.project.tag")
 @Data
 public class TagAdaptorProperties {
     @NotNull

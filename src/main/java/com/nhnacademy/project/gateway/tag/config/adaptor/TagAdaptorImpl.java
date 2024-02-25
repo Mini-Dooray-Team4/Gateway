@@ -3,6 +3,8 @@ package com.nhnacademy.project.gateway.tag.config.adaptor;
 import com.nhnacademy.project.gateway.project.domain.Tag;
 import com.nhnacademy.project.gateway.tag.config.TagAdaptorProperties;
 import com.nhnacademy.project.gateway.tag.domain.TagRegisterDto;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -12,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Component
-
+@Slf4j
 public class TagAdaptorImpl implements TagAdaptor{
     private final RestTemplate restTemplate;
     private final TagAdaptorProperties properties;
@@ -51,11 +53,12 @@ public class TagAdaptorImpl implements TagAdaptor{
     }
 
     @Override
-    public void createTag(Tag tag) {
+    public void createTag(TagRegisterDto tagRegisterDto) {
+        log.info("{}",address);
         restTemplate.postForEntity(
-                address,
-                tag,
-                Tag.class
+                address+"/register",
+                tagRegisterDto,
+                TagRegisterDto.class
         );
     }
 

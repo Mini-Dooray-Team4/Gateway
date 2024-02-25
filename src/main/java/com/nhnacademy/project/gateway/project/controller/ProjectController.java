@@ -8,7 +8,7 @@ import com.nhnacademy.project.gateway.project.domain.ProjectRegisterDto;
 import com.nhnacademy.project.gateway.project.service.ProjectService;
 import com.nhnacademy.project.gateway.task.domain.Task;
 import com.nhnacademy.project.gateway.task.service.TaskService;
-import com.nhnacademy.project.gateway.user.domain.ProjectMemberRegisterDto;
+import com.nhnacademy.project.gateway.project.domain.ProjectMemberRegisterDto;
 import com.nhnacademy.project.gateway.user.domain.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

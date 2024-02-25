@@ -8,7 +8,7 @@ import java.util.List;
 public interface TagAdaptor {
     List<Tag> getAllTags();
     Tag getTag(Integer tagId);
-    void createTag(Tag tag);
+    void createTag(TagRegisterDto tagRegisterDto);
     void deleteTag(Integer tagId);
 
     void updateTag(Tag tag);
