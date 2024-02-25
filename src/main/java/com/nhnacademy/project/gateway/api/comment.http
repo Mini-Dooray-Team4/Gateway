@@ -1,5 +1,0 @@
-### 조회
-POST http://localhost:8080/project/1/task/1/comment
-accept: application/json
-
-### 등록
