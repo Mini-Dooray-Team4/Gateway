@@ -51,10 +51,10 @@ public class TagAdaptorImpl implements TagAdaptor{
     }
 
     @Override
-    public void createTag(TagRegisterDto registerDto) {
+    public void createTag(Tag tag) {
         restTemplate.postForEntity(
                 address,
-                registerDto,
+                tag,
                 Tag.class
         );
     }

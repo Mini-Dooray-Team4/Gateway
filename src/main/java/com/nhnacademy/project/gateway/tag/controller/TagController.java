@@ -26,8 +26,8 @@ public class TagController {
     }
 
     @PostMapping("/register")
-    public String createTag(TagRegisterDto registerDto, @RequestParam("projectId") Integer projectId, RedirectAttributes redirectAttributes) {
-        tagService.createTag(registerDto);
+    public String createTag(Tag tag, @RequestParam("projectId") Integer projectId, RedirectAttributes redirectAttributes) {
+        tagService.createTag(tag);
         redirectAttributes.addFlashAttribute("project", projectService.getProject(projectId));
         return "redirect:/project/" + projectId;
     }
