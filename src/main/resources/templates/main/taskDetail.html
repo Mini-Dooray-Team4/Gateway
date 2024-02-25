@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main/tasks}">
+<th:block layout:fragment="taskDetail">
+
+    <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="width: 80%;height:95vh">
+        <div class="d-flex align-items-center flex-shrink-0 p-2 link-body-emphasis text-decoration-none border-bottom">
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#tagModal">
+                Tag +
+            </button>
+        </div>
+        <div class="card card-widget mt-2">
+            <div class="card-header">
+                <div class="d-flex justify-content-between bd-highlight">
+                    <div>
+                        <strong th:text="${task.taskTitle}"></strong>
+                    </div>
+                    <div>
+                        <strong th:text="${'등록자 : '+task.userId +'등록일 : '+task.createAt}"></strong>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="card-body">
+                <div class="ps-2" style="height: 300px">
+                    <strong th:text="${task.taskContent}"></strong>
+                </div>
+                <div class="card-footer card-comments"  style="overflow: scroll;height: 50vh">
+
+                    <div class="card-comment" th:if="${commentList !=null}"
+                         th:each="comment : ${commentList}" >
+                        <div class="d-flex justify-content-between bd-highlight">
+                            <div>
+                                <strong th:text="${'등록자 : '+comment.userId +'등록일 : '+comment.createAt}"></strong>
+                            </div>
+
+                        </div>
+
+                        <strong th:text="${comment.content}"></strong>
+
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <form th:action="@{/comment}" th:method="post">
+                        <input type="hidden" th:value="${session.project.projectId}" name="projectId">
+                        <input type="hidden" th:value="${task.taskId}" name="taskId">
+                        <input type="hidden" th:value="${session.user.userId}" name="userId">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <input type="text" class="form-control form-control-sm" placeholder="코멘트 입력"
+                                       name="content">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-default btn-sm">등록</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</th:block>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main/index}" xmlns="http://www.w3.org/1999/html">
+<th:block layout:fragment="projectList">
+    <div class="d-flex align-items-center flex-shrink-0 p-2 link-body-emphasis text-decoration-none border-bottom">
+        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#projectModal"
+                style="width: 50%">
+            Add +
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="projectModal" data-bs-backdrop="static" data-bs-keyboard="false"
+             tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="projectModalLabel">Project Add</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <form method="post" th:action="@{/project/register}">
+                        <div class="modal-body">
+
+                            <input type="hidden" th:value="${session.user.userId}" name="userId">
+
+                            <div class="mb-3">
+                                <label for="projectName-input" class="col-form-label">Project Name :</label>
+                                <input type="text" class="form-control" name="projectName"
+                                       id="projectName-input"
+                                       placeholder="Project Name">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">ADD</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group list-group-flush border-bottom scrollarea"
+         style="overflow: scroll;height:100vh;padding: 10px;">
+        <div class="btn-group" th:each="projectItem : ${session.projects}">
+            <a th:href="@{/project/{projectId}(projectId=${projectItem.projectId})}"
+               th:classappend="${session.project != null && projectItem.projectId == session.project.projectId} ? 'btn btn-primary list-group-item-action  py-2 lh-sm ' : 'btn btn-outline-secondary list-group-item-action py-2 lh-sm'"
+               aria-current="true">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <p th:text="${projectItem.projectName}" style="font-size: 15px;margin-bottom: 0px;"></p>
+                </div>
+            </a>
+            <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    th:classappend="${session.project != null && projectItem.projectId == session.project.projectId} ? 'btn btn-primary dropdown-toggle dropdown-toggle-split' : 'btn btn-outline-secondary dropdown-toggle dropdown-toggle-split'">
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <button class="dropdown-item" data-bs-toggle="modal"
+                            th:data-bs-target="'#projectSettingModal'+${projectItem.projectId}">프로젝트 설정
+                    </button>
+                </li>
+                <li>
+                    <button class="dropdown-item" data-bs-toggle="modal"
+                            th:data-bs-target="'#memberAddModal'+${projectItem.projectId}"
+                            th:projectId="${projectItem.projectId}"
+                            th:onclick="getUsers(this.getAttribute('projectId'))">멤버 추가
+                    </button>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+
+            <!-- Modal -->
+            <div class="modal fade" th:id="'projectSettingModal'+${projectItem.projectId}" tabindex="-1"
+                 th:aria-labelledby="'projectSettingModalLabel'+${projectItem.projectId}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" th:id="'projectSettingModalLabel'+${projectItem.projectId}">
+                                Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post"
+                              th:action="@{/project/modify/{projectId}(projectId=${projectItem.projectId})}">
+                            <div class="modal-body">
+
+                                <input type="hidden" th:value="${projectItem.projectId}" name="projectId">
+
+                                <div class="mb-3">
+                                    <label for="projectModifyName-input" class="col-form-label">Project Name :</label>
+                                    <input type="text" class="form-control" name="projectName"
+                                           id="projectModifyName-input"
+                                           th:value="${projectItem.projectName}">
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" th:id="'memberAddModal'+${projectItem.projectId}" tabindex="-1"
+                 th:aria-labelledby="'memberAddModalLabel'+${projectItem.projectId}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" th:id="'memberAddModalLabel'+${projectItem.projectId}">
+                                멤버 초대</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post"
+                              th:action="@{/project/{projectId}/member/invite(projectId=${projectItem.projectId})}">
+                            <div class="modal-body">
+
+                                <input type="hidden" th:value="${projectItem.projectId}" name="projectId">
+                                <div th:id="'userList'+${projectItem.projectId}">
+
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script th:inline="javascript">
+        function getUsers(projectId) {
+            $.ajax({
+                url: 'http://localhost:9090/users',
+                success: function (data) {
+                    var users = data;
+                    var userList = $('#userList' + projectId);
+                    userList.empty(); // 기존 목록을 비웁니다.
+                    $.each(users, function (index, user) {
+                        var checkbox = $('<input>').attr({
+                            class:'me-2',
+                            name:'userId',
+                            type: 'checkbox',
+                            id: 'checkbox_' + user.userId, // Set checkbox id
+                            value: user.userId // Set checkbox value
+                        });
+
+                        // Create label element
+                        var label = $('<label>').attr('for', 'checkbox_' + user.userId).text(user.userId); // Set label for attribute and text
+
+                        // Append checkbox and label to the list
+                        userList.append(checkbox);
+                        userList.append(label);
+                        userList.append($('<br>'));
+                    });
+                    console.log(data)
+                },
+            })
+        }
+
+        getUsers();
+    </script>
+
+</th:block>
+</html>
