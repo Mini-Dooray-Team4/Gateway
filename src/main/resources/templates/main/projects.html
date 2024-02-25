@@ -2,7 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{main/index}">
+      layout:decorate="~{main/index}" xmlns="http://www.w3.org/1999/html">
 <th:block layout:fragment="projectList">
     <div class="d-flex align-items-center flex-shrink-0 p-2 link-body-emphasis text-decoration-none border-bottom">
         <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#projectModal"
@@ -66,7 +66,11 @@
                     </button>
                 </li>
                 <li>
-                    <button class="dropdown-item">멤버 추가</button>
+                    <button class="dropdown-item" data-bs-toggle="modal"
+                            th:data-bs-target="'#memberAddModal'+${projectItem.projectId}"
+                            th:projectId="${projectItem.projectId}"
+                            th:onclick="getUsers(this.getAttribute('projectId'))">멤버 추가
+                    </button>
                 </li>
                 <li>
                     <hr class="dropdown-divider">
@@ -97,6 +101,7 @@
                                            th:value="${projectItem.projectName}">
                                 </div>
 
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
@@ -107,9 +112,70 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" th:id="'memberAddModal'+${projectItem.projectId}" tabindex="-1"
+                 th:aria-labelledby="'memberAddModalLabel'+${projectItem.projectId}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" th:id="'memberAddModalLabel'+${projectItem.projectId}">
+                                멤버 초대</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post"
+                              th:action="@{/project/{projectId}/member/invite(projectId=${projectItem.projectId})}">
+                            <div class="modal-body">
+
+                                <input type="hidden" th:value="${projectItem.projectId}" name="projectId">
+                                <div th:id="'userList'+${projectItem.projectId}">
+
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+    <script th:inline="javascript">
+        function getUsers(projectId) {
+            $.ajax({
+                url: 'http://localhost:9090/users',
+                success: function (data) {
+                    var users = data;
+                    var userList = $('#userList' + projectId);
+                    userList.empty(); // 기존 목록을 비웁니다.
+                    $.each(users, function (index, user) {
+                        var checkbox = $('<input>').attr({
+                            class:'me-2',
+                            name:'userId',
+                            type: 'checkbox',
+                            id: 'checkbox_' + user.userId, // Set checkbox id
+                            value: user.userId // Set checkbox value
+                        });
 
+                        // Create label element
+                        var label = $('<label>').attr('for', 'checkbox_' + user.userId).text(user.userId); // Set label for attribute and text
+
+                        // Append checkbox and label to the list
+                        userList.append(checkbox);
+                        userList.append(label);
+                        userList.append($('<br>'));
+                    });
+                    console.log(data)
+                },
+            })
+        }
+
+        getUsers();
+    </script>
 
 </th:block>
 </html>

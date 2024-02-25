@@ -5,6 +5,7 @@ import com.nhnacademy.project.gateway.project.domain.Project;
 import com.nhnacademy.project.gateway.project.domain.ProjectDto;
 import com.nhnacademy.project.gateway.project.domain.ProjectModifyDto;
 import com.nhnacademy.project.gateway.project.domain.ProjectRegisterDto;
+import com.nhnacademy.project.gateway.user.domain.ProjectMemberRegisterDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -78,5 +79,15 @@ public class ProjectAdaptorImpl implements ProjectAdaptor {
         restTemplate.delete(
                 address + "/{projectId}",
                 projectId);
+    }
+
+    @Override
+    public void inviteProjectMember(ProjectMemberRegisterDto projectMemberRegisterDto) {
+        restTemplate.postForEntity(
+                address+"/{projectId}/member/invite",
+                projectMemberRegisterDto,
+                Void.class,
+                projectMemberRegisterDto.getProjectId()
+        );
     }
 }
