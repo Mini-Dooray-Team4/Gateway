@@ -9,12 +9,15 @@ import com.nhnacademy.project.gateway.project.domain.ProjectRegisterDto;
 import com.nhnacademy.project.gateway.project.service.ProjectService;
 import com.nhnacademy.project.gateway.task.domain.Task;
 import com.nhnacademy.project.gateway.task.service.TaskService;
+import com.nhnacademy.project.gateway.user.domain.ProjectMemberRegisterDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -35,6 +38,7 @@ public class ProjectController {
     @GetMapping
     public String getProjects(Model model, HttpSession session) {
         List<ProjectDto> projects = projectService.getProjects();
+        session.getAttribute("user");
         session.setAttribute("projects", projects);
         return "main/projects";
     }
@@ -67,6 +71,14 @@ public class ProjectController {
     public String updateProject(ProjectModifyDto projectModifyDto) {
         log.info("{}",projectModifyDto);
         projectService.updateProject(projectModifyDto);
+        return "redirect:/project";
+    }
+
+    @PostMapping("/{projectId}/member/invite")
+    public String inviteProjectMember(HttpServletRequest request,ProjectMemberRegisterDto projectMemberRegisterDto) {
+        log.info("{}",projectMemberRegisterDto);
+        projectService.inviteProjectMember(projectMemberRegisterDto);
+
         return "redirect:/project";
     }
 
