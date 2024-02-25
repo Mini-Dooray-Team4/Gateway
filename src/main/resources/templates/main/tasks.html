@@ -71,7 +71,6 @@
                     <form method="post" th:action="@{/tag/register}">
                         <div class="modal-body">
                             <input type="hidden" th:value="${session.project.projectId}" name="projectId">
-                            <input type="hidden" th:value="${session.project.projectId}" name="taskId">
                             <div class="mb-3">
                                 <label for="taskName-input" class="col-form-label">Tag Name :</label>
                                 <input type="text" class="form-control" name="tagName"

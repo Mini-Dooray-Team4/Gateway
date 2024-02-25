@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @Slf4j
 @RequestMapping("/tag")
@@ -26,10 +28,9 @@ public class TagController {
     }
 
     @PostMapping("/register")
-    public String createTag(Tag tag, @RequestParam("projectId") Integer projectId, RedirectAttributes redirectAttributes) {
-        tagService.createTag(tag);
-        redirectAttributes.addFlashAttribute("project", projectService.getProject(projectId));
-        return "redirect:/project/" + projectId;
+    public String createTag(TagRegisterDto tagRegisterDto, HttpServletRequest request) {
+        tagService.createTag(tagRegisterDto);
+        return "redirect:" + request.getHeader("Referer");
     }
 
     @PutMapping("/{tagId}")

@@ -5,7 +5,8 @@ import com.nhnacademy.project.gateway.project.domain.Project;
 import com.nhnacademy.project.gateway.project.domain.ProjectDto;
 import com.nhnacademy.project.gateway.project.domain.ProjectModifyDto;
 import com.nhnacademy.project.gateway.project.domain.ProjectRegisterDto;
-import com.nhnacademy.project.gateway.user.domain.ProjectMemberRegisterDto;
+import com.nhnacademy.project.gateway.project.domain.ProjectMemberRegisterDto;
+import com.nhnacademy.project.gateway.user.domain.UserDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -27,10 +28,10 @@ public class ProjectAdaptorImpl implements ProjectAdaptor {
     }
 
     @Override
-    public List<ProjectDto> getProjects() {
+    public List<ProjectDto> getProjects(UserDto user) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
-
+        httpHeaders.add("userId",user.getUserId());
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
         ResponseEntity<List<ProjectDto>> exchange = restTemplate.exchange(
                 address,

@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TagRegisterDto {
-    private Integer tagId;
+    private Integer projectId;
     private String tagName;
 }
